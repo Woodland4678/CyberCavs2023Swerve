@@ -147,6 +147,7 @@ public class SwerveModule {
   }
 
   public Rotation2d getCanCoder() {
+    
     return Rotation2d.fromDegrees(angleEncoderTemp.getAbsolutePosition()); //TODO may need the if statements with the offsets here like we had in the other code
    // return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition()); //TODO uncomment once we have can coders
   }
