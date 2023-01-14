@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -75,6 +76,7 @@ public class SwerveModule {
   }
 
   private void resetToAbsolute() {
+    //System.out.println(getCanCoder().getDegrees());
     double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
     integratedAngleEncoder.setPosition(absolutePosition);
   }
@@ -82,7 +84,7 @@ public class SwerveModule {
   private void configAngleEncoder() {
     angleEncoder.configFactoryDefault();
     CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kMinimal);
-    angleEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig); //TODO uncomment once we have cancoders
+    //angleEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig); //TODO uncomment once we have cancoders
   }
 
   private void configAngleMotor() {
@@ -147,9 +149,9 @@ public class SwerveModule {
   }
 
   public Rotation2d getCanCoder() {
-    
-    return Rotation2d.fromDegrees(angleEncoderTemp.getAbsolutePosition()); //TODO may need the if statements with the offsets here like we had in the other code
-   // return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition()); //TODO uncomment once we have can coders
+
+    return Rotation2d.fromDegrees(angleEncoderTemp.getAbsolutePosition() * 360); //TODO may need the if statements with the offsets here like we had in the other code
+    //return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition()); //TODO uncomment once we have can coders
   }
 
   public SwerveModuleState getState() {
